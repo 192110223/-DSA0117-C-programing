@@ -1,43 +1,41 @@
-
 #include <iostream>
 using namespace std;
-class Rectangle {
+class BankAccount {
+private:
+    int accountNumber;
+    double balance;
 public:
-    int length, breadth;
-    Rectangle(int a) {
-        length = a;
-        breadth = a;
+    BankAccount(int accNum = 0, double bal = 0.0) {
+        accountNumber = accNum;
+        balance = bal;
     }
-    void area() {
-        cout << "Area of Rectangle: " << length * breadth << endl;
+    void display() {
+        cout << "Account Number: " << accountNumber << endl;
+        cout << "Balance: $" << balance << endl;
     }
-};
-class Box {
-public:
-    int length, width, height;
-    Box() {
-        length = width = height = 1;
+    void deposit(double amount) {
+        if (amount > 0) {
+            balance += amount;
+        }
     }
-    Box(int a) {
-        length = width = height = a;
-    }
-    Box(int l, int w, int h) {
-        length = l;
-        width = w;
-        height = h;
-    }
-    void volume() {
-        cout << "Volume of Box: " << length * width * height << endl;
+    void withdraw(double amount) {
+        if (amount > 0 && amount <= balance) {
+            balance -= amount;
+        } else {
+            cout << "Insufficient funds or invalid amount." << endl;
+        }
     }
 };
 int main() {
-    Rectangle r(4);
-    r.area();
-    Box b1;
-    Box b2(3);
-    Box b3(2, 3, 4);
-    b1.volume();
-    b2.volume();
-    b3.volume();
+    BankAccount acc1; 
+    BankAccount acc2(12345, 500.0); 
+    cout << "Account 1 details:" << endl;
+    acc1.display();
+    cout << "\nAccount 2 details:" << endl;
+    acc2.display();
+    acc2.deposit(200);
+    acc2.withdraw(100);
+    cout << "\nAccount 2 after transactions:" << endl;
+    acc2.display();
     return 0;
 }
